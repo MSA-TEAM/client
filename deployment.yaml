@@ -1,0 +1,29 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ms-client
+  labels:
+    app: ms-client
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ms-client
+  template:
+    metadata:
+      labels:
+        app: ms-client
+        version: "1.0.0"
+    spec:
+      containers:
+      - name: ms-client
+        image: docker.gsp.sicc.co.kr/client:1.0.0
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: dev
+        - name: spring.cloud.config.uri
+          value: http://100.102.123.206:8888
+        ports:
+        - name: http
+          containerPort: 8080
