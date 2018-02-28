@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name="client")
+@Table(name="oauthclient")
 public class Client implements Serializable {
 
     @Id

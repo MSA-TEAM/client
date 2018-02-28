@@ -10,7 +10,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.17.2"
+		classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.19.2"
 	}
 }
 
@@ -35,8 +35,11 @@ group = 'docker.gsp.sicc.co.kr'
 
 docker {
 	name "${project.group}/${jar.baseName}:${jar.version}"
+	tags 'latest'
 	files jar.archivePath
 	buildArgs(['JAR_FILE': "${jar.archiveName}"])
+	pull true
+	noCache true
 }
 
 ext {
@@ -49,8 +52,8 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-hystrix')
 	compile('org.springframework.cloud:spring-cloud-starter-zipkin')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	runtime('mysql:mysql-connector-java')
-	compile("org.springframework.boot:spring-boot-starter-actuator")
+	runtime('org.postgresql:postgresql:42.1.1')
+	compile('org.springframework.cloud:spring-cloud-starter-config')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

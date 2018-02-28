@@ -16,9 +16,9 @@ public class ClientService {
     private ClientRepository repository;
 
     @HystrixCommand(commandKey = "클라이언트조회",  fallbackMethod = "queryByIdDefault",
-            threadPoolKey = "Query Client", threadPoolProperties = {
-            @HystrixProperty(name="coreSize", value="30"),
-            @HystrixProperty(name="maxQueueSize", value="30")
+                     threadPoolKey = "Query Client", threadPoolProperties = {
+        @HystrixProperty(name="coreSize", value="30"),
+        @HystrixProperty(name="maxQueueSize", value="30")
     })
     public Optional<Client> queryById(String clientId) {
         return repository.findByClientId(clientId);
